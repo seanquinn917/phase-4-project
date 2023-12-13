@@ -9,7 +9,6 @@ return(
 <div>
     {movieList}
 </div>
-
 )
 
 

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Auth from './Auth';
 import MovieList from './MovieList';
+import Home from './Home';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Routes>
             <Route path="/login" element={<Auth />} />
             <Route path= "/movies" element={<MovieList movieList={displayMovies}/>} />
+            <Route path="/" element={<Home/>}/>
           </Routes>
       </BrowserRouter>
       
