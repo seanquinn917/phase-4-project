@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 cities = ["New York", "Des Moines", "Grand Rapids", "Milford", "Boston", "Hartford", "Dallas", "Seattle", "Albany", "Beacon"]
-reviews = ["Best movie ever!", "I thought it was too long", "Can't wait to come back and see it again","I hated the main character", "Can't wait for the sequel", "I aged watching this movie"]
+review_strings = ["Best movie ever!", "I thought it was too long", "Can't wait to come back and see it again","I hated the main character", "Can't wait for the sequel", "I aged watching this movie"]
 
 movies = [
   { title: "Lord of the Rings", director: "Peter Jackson", genre: "Fantasy" },
@@ -21,20 +21,25 @@ movies = [
   { title: "Up Close and Personal", director: "Jon Avnet", genre: "Romance" }
 ]
 
+reviews_data = []
 movies.each do |movie_data|
-  movie = Movie.create(movie_data)
-  5.times do 
-    user = User.create(
+  movie = Movie.find_or_create_by(movie_data)
+  rand(1..5).times do 
+    user = User.find_or_create_by(
+      username: Faker::Internet.username,
       name: Faker::Name.name,
       age: rand(18..76),
       city: cities.sample
     )
-    Review.create(
-      content: reviews.sample,
-      movie_id: movie.id,
-      user_id: user.id
-    )
+    random_review = review_strings.sample
+    reviews_data << {
+      content: random_review,
+      movie: movie,
+      user: user
+    }
+    puts "Created a user: #{user.username}"
   end
 end
+Review.create(reviews_data)
 
 puts "✅ Done seeding!"

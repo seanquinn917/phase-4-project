@@ -1,14 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 import Auth from './Auth';
 import MovieList from './MovieList';
 import Home from './Home';
-
+import { Link } from 'react-router-dom';
 
 function App() {
  const [movies, setMovies]=useState([])
+ const{id}=useParams()
 
   useEffect(()=>{
     fetch("http://localhost:4000/movies")
@@ -18,7 +19,12 @@ function App() {
 
   
   const displayMovies = movies.map((movie)=>{
-    return <li> {movie.title}</li>
+    return <div> 
+      <li> 
+        
+        <Link to={`/movies/${id}`}>{movie.title}</Link>
+          </li>
+          </div>
   })
 
   

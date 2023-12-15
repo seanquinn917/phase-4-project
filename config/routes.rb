@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :movies
 
   get "/movies", to: "movies#index"
+  get "/movies/:id", to: "movies#show"
 
   resources :reviews
 
