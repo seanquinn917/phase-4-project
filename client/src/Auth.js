@@ -2,47 +2,42 @@ import React, { useInsertionEffect, useState } from "react"
 
 
 function Auth(){
-const [name, setName]=useState("")
-const [password, setPassword]=useState()
+const [username, setUserName]=useState("")
+const [password, setPassword]=useState("")
+const [user, setUser]=useState(null)
 
 
-function SignUp(e){
-    e.preventDefault()
-   
-    fetch("/login",{
+function Login(e){
+    e.preventDefault();
+    fetch("/login", {
         method: "POST",
-        headers:{
-            "content-type":"application/json"
-        }, 
-        body:JSON.stringify({name, password})
-    })
-    .then(res=>{
-        if(res.ok){
-            res.json().then(user=>console.log(user))
-        }else {
-            res.json().then(e=>console.log(e.errors.full_messages))
-        }
-    })
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username })
+      })
+    .then((r)=>r.json())
+    .then ((user)=>setUser(user));
     
 }
 
-
+console.log(user)
     return(
-        <form onSubmit={SignUp}>
+        <form onSubmit={Login}>
             <label>Enter your username</label>
+            <input
+            type="text"
+            id="name"
+            value={username}
+            onChange={(e)=>setUserName(e.target.value)}
+            />
+            {/* <label>Enter your password</label>
             <input
             type="text"
             id="password"
             value={password}
-            onChange={(e)=>setPassword(e.target.value)}
-            />
-            <label>Enter your password</label>
-            <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e)=>setName(e.target.value)}
-            />
+            onChange={(e)=>setUserName(e.target.value)}
+            /> */}
             <div className="Form Control">
                 <label></label>
                 <button type="submit">Login</button>

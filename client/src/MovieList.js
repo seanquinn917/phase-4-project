@@ -1,18 +1,24 @@
 import React from "react";
+import { Link, useParams } from 'react-router-dom';
+import MovieTile from "./MovieTile";
+
+function MovieList({movies}){
 
 
-function MovieList({movieList}){
 
-    // function AddMovie(){
-    //     e.preventDefault();
-    //     fetch("/movies")
-    // }
 
+
+
+    
+    const displayMovies = movies.map((movie)=>{
+        return <MovieTile movies={movies} id={movie.id} key={movie.id} title={movie.title} director={movie.director} genre={movie.genre}/>
+      })
+    
 
 return(
 
 <div>
-    {movieList}
+    {displayMovies}
 </div>
 )
 
