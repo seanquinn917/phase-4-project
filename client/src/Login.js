@@ -1,16 +1,20 @@
 import React from "react";
 import SignUp from "./SignUp";
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "./User-context";
 
 
 
-function Login({user, setUser}){
+function Login(){
+ const [user, setUser]=useContext(UserContext)
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
+    const navigate=useNavigate()
 
 
     function onLogin(e){
@@ -24,9 +28,9 @@ function Login({user, setUser}){
         }).then((r)=>{
             if(r.ok){
                 r.json()
-                .then((user)=> {
-                    setUser(user)
-                    Navigate("/movies")});
+                .then((loggedInUser)=> {
+                    setUser(loggedInUser)
+                    navigate('/movies')});
             } else {
             r.json().then((error)=> console.log(error.errors));
             }

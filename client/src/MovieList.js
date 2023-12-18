@@ -2,11 +2,13 @@ import React from "react";
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import MovieTile from "./MovieTile";
 import { useState, useEffect } from "react";
+import { useContext } from "react";
+import UserContext from "./User-context";
 
-function MovieList({user, movies, setMovies}){
+function MovieList({ movies, setMovies}){
 const{id}=useParams()
 
-console.log(user)
+const [user, setUser]= useContext(UserContext)
 
 
 const [newMovieForm, setNewMovieForm]=useState({
