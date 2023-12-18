@@ -13,11 +13,10 @@ Rails.application.routes.draw do
   post "/reviews",to: "reviews#create"
   
   resources :users
-  
+
   get"/me", to:"users#show"
   get"/users", to: "users#index"
   post'/signup', to:"users#create"
-
 
 
   post "/login", to: "sessions#create"

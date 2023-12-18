@@ -32,7 +32,7 @@ function App() {
             <Route path= "/movies" element={<MovieList movies={movies} setMovies={setMovies}/>}/>
             <Route path="/" element={<Home user={user} setUser={setUser}/>}/>
             <Route path= '/movies/:id' element={<InsiderInfo movies={movies} setMovies={setMovies}/>}/>
-            <Route path="/login" element={Login}/>
+            <Route path="/login" element={<Login user={user} setUser={setUser}/>}/>
           </Routes>
       </BrowserRouter>
     </div>  
