@@ -29,9 +29,9 @@ console.log(user)
 
         <div>
             <p>
-                Welcome!
-        Not a member? <Link to={'/signup'}> click here to Signup</Link>
-        </p>
+                Welcome Back {user.name}!  
+                <Link to="/movies">Click here to Enter</Link>
+          </p>
         </div>
         )
 };

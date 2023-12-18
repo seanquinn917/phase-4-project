@@ -1,7 +1,8 @@
 import React from "react";
 import SignUp from "./SignUp";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -22,7 +23,10 @@ function Login({user, setUser}){
             body: JSON.stringify({username, password}),
         }).then((r)=>{
             if(r.ok){
-                r.json().then((user)=> setUser(user));
+                r.json()
+                .then((user)=> {
+                    setUser(user)
+                    Navigate("/movies")});
             } else {
             r.json().then((error)=> console.log(error.errors));
             }
@@ -50,7 +54,7 @@ console.log(user)
         value = {password}
         onChange={(e)=>setPassword(e.target.value)}
         />
-    <button typ="submit">Login</button>
+    <button type="submit">Login</button>
     </form>
     <p>
     Not a member? <Link to='/signup'>Click here to sign up</Link>

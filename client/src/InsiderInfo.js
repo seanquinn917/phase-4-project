@@ -5,10 +5,10 @@ import { useState } from "react";
 
 
 
-function InsiderInfo({movies, setMovies}){
+function InsiderInfo({user, movies, setMovies}){
 
    
-
+console.log(user)
 
 const {id}=useParams()
 const[newReviewContent, setNewReviewContent]=useState({

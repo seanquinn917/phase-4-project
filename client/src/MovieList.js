@@ -3,10 +3,10 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import MovieTile from "./MovieTile";
 import { useState, useEffect } from "react";
 
-function MovieList({movies, setMovies}){
+function MovieList({user, movies, setMovies}){
 const{id}=useParams()
 
-
+console.log(user)
 
 
 const [newMovieForm, setNewMovieForm]=useState({

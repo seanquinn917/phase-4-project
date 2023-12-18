@@ -2,8 +2,16 @@ class MoviesController < ApplicationController
 
 
     def index
+        if session[:user_id]
         movie = Movie.all
+        if movie.any?
         render json: movie, include: :reviews
+        else 
+            render json: {errors: ["Unauthorized"]}, status: :Unauthorized
+        end
+    else 
+        rend json: {errors: ["Unauthorized"]}, status: :unauthorized
+    end
     end
 
     def show
