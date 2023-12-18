@@ -7,13 +7,10 @@ class MoviesController < ApplicationController
     end
 
     def show
-      
         movie = Movie.find_by(id:params[:id])
-       
         if !movie
             render json: {errors: "movie not found"}, status: :not_found
         else
-            
             render json: movie, include: :reviews, status: :ok
         end
     end

@@ -9,6 +9,8 @@ function InsiderInfo({movies, setMovies}){
 const {id}=useParams()
 const[newReviewContent, setNewReviewContent]=useState({
     content:"",
+    name:"",
+    city:"",
     movie_id :id
 })
 
@@ -24,6 +26,8 @@ const movie = movies.find(movie=>movie.id===parseInt(id))
             },
             body:JSON.stringify({
                 content:newReviewContent.content,
+                name:newReviewContent.name,
+                city:newReviewContent.city,
                 movie_id: id
             })
         })
@@ -51,10 +55,15 @@ const movie = movies.find(movie=>movie.id===parseInt(id))
     if(!movie){
         return <h1>Loading...</h1>
     }
-    
+    // const user= movies.users.map((user)=>{
+    //     console.log(user)
+    // })
+    // }
    
    const reviews= movie.reviews.map((review)=>{
-    return <ul>{review.content}-{review.user}</ul>
+    const user = movie.users.find((user) => user.id === review.user_id);
+    console.log(user)
+    return <ul>{review.content} said {user.name} from {user.city}</ul>
    })
 
     return(
@@ -68,7 +77,14 @@ const movie = movies.find(movie=>movie.id===parseInt(id))
                 {reviews}
                </ul>
                <form onSubmit={addNewReview}>
-                <input type="text" name="content" value={newReviewContent.content} onChange={handleReviewFormChange}></input>
+                <ul>
+                <li><label>What's your name?</label>
+                <input type="text" name="name" value={newReviewContent.name} onChange={handleReviewFormChange}></input></li>
+                <li><label>Where are you from?</label>
+                <input type="text" name="city" value={newReviewContent.city} onChange={handleReviewFormChange}></input></li>
+                <li><label>What did you think??</label>
+                <input type="text" name="content" value={newReviewContent.content} onChange={handleReviewFormChange}></input></li>
+                </ul>
                 <input type="submit" value="submit"></input>
                </form>
         </div>

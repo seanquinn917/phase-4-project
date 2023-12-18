@@ -6,6 +6,11 @@ class ReviewsController < ApplicationController
         render json: reviews, include: :users
     end 
 
+    def show
+        review=Review.find_by(id:params[:id])
+        render json: review, include: :user
+    end
+
     def create
         review=Review.create(review_params)
         render json:review
@@ -21,7 +26,7 @@ class ReviewsController < ApplicationController
     private
 
     def review_params
-        params.permit( :movie, :content, :movie_id, )
+        params.permit( :movie, :content, :movie_id, :name, :city, :review)
     end
 
 end
