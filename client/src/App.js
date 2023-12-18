@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Auth from './Auth';
 import MovieList from './MovieList';
 import Home from './Home';
-
+import InsiderInfo from './InsiderInfo';
 
 function App() {
  const [movies, setMovies]=useState([])
@@ -17,39 +17,19 @@ function App() {
     .then((data)=>setMovies(data))
   }, [])
 
- 
   
   
   return (
       <div className="App">
-    {/* //   <main> */}
-    {/* {/* // <div> */}
        <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Auth />} />
-            <Route path= "/movies" element={<MovieList movies={movies}/>} />
+            <Route path= "/movies" element={<MovieList movies={movies} id={movies.id} setMovies={setMovies}/>}/>
             <Route path="/" element={<Home/>}/>
+            <Route path= '/movies/:id' element={<InsiderInfo movies={movies} setMovies={setMovies}/>}/>
           </Routes>
       </BrowserRouter>
-      
     </div>  
-    /* //   {/* // </main> */
-    /* //   /* <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-          
-    //     </p>
-    //     <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          
-        </a>
-      </header> */
-   
   );
 }
 

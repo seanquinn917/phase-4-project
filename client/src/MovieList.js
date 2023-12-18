@@ -1,25 +1,75 @@
 import React from "react";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import MovieTile from "./MovieTile";
+import { useState } from "react";
 
-function MovieList({movies}){
+function MovieList({movies,  setMovies}){
+const{id}=useParams()
+
+const [newMovieForm, setNewMovieForm]=useState({
+  title: "",
+  director: "",
+  genre:""
+})
+
+function movieFormChange(e){
+  e.preventDefault()
+setNewMovieForm({
+  ...newMovieForm,
+[e.target.name]:e.target.value
+})
+}
+
+function addNewMovie(e){
+ e.preventDefault()
+ fetch('/movies',{
+  method: 'POST',
+  headers: {
+    "content-type":"application/JSON"
+  },
+  body: JSON.stringify({
+    title:newMovieForm.title,
+    director:newMovieForm.director,
+    genre:newMovieForm.genre
+  })
+ })
+ .then((r)=>r.json())
+ .then((newMovie)=>setMovies([...movies, newMovie]))
+}
 
 
 
-
-
-
-    
-    const displayMovies = movies.map((movie)=>{
-        return <MovieTile movies={movies} id={movie.id} key={movie.id} title={movie.title} director={movie.director} genre={movie.genre}/>
-      })
+    // const displayMovies = movies.map((movie)=>{
+    //     return <MovieTile movies={movies} id={movie.id} key={movie.id} title={movie.title} director={movie.director} genre={movie.genre} />
+    //   })
     
 
 return(
 
 <div>
-    {displayMovies}
+    {movies.map((movie)=>{
+      return  <MovieTile
+      key={movie.id}
+      setMovies={setMovies}
+      movies={movies}
+      id={movie.id}
+      title={movie.title}
+      director={movie.director}
+      genre={movie.genre}
+    />
+    })}
+    <form onSubmit={addNewMovie}>Add your favorite movie:
+        <label>Movie Title</label>
+        <input type="text" name="title" value={newMovieForm.title} onChange={movieFormChange}></input>
+        <label>Director</label>
+        <input type="text" name="director" value={newMovieForm.director} onChange={movieFormChange}></input>
+        <label>Genre</label>
+        <input type="text" name="genre" value={newMovieForm.genre} onChange={movieFormChange}></input>
+        <input type="submit" value="submit"/>
+        
+    </form>
 </div>
+
 )
 
 

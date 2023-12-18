@@ -6,18 +6,27 @@ class MoviesController < ApplicationController
         render json: movie, include: :reviews
     end
 
-    def show 
-        movie = Movie.find_by(id: params[:id])
+    def show
+      
+        movie = Movie.find_by(id:params[:id])
+       
         if !movie
             render json: {errors: "movie not found"}, status: :not_found
-        else 
-            render json: movie, status: :ok
+        else
+            
+            render json: movie, include: :reviews, status: :ok
         end
     end
 
     def create 
         movie= Movie.create!(movie_params)
         render json: movie
+    end
+
+    def destroy
+        movie=Movie.find_by(id:params[:id])
+        movie.destroy
+        head :no_content
     end
 
 
