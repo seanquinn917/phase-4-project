@@ -2,10 +2,12 @@ class SessionsController < ApplicationController
 
     def create
         user = User.find_by(username: params[:username])
-        # puts "this", user.inspect # Add this line to check the value of user
-        # puts User.where(username: params[:username]).to_sql
+    if user&.authenicate(params[:password])
         session[:user_id] = user.id
-        render json: user
+        render json: user, status: :created
+    else 
+        render json: {error: "Invalid username or password"}, status: :unprocessable_entity
+    end
 end 
 
 

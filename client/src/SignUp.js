@@ -1,42 +1,30 @@
-import React, { useInsertionEffect, useState } from "react"
+import React, { useState } from "react"
 
 
-function Auth(){
+
+function SignUp(){
 const [username, setUserName]=useState("")
 const [password, setPassword]=useState("")
-const [user, setUser]=useState({
-    username:"",
-    password:"",
-    city:"",
-    age:"",
-    name:""
-
-})
+const [passwordConfirmation, setPasswordConfirmation]=useState('')
+const [user, setUser]=useState(null)
+const[city, setCity]=useState("")
+const[name, setName]=useState('')
+const[age, setAge]=useState('')
 const [errors, setErrors]=useState([])
 
-
-// function Login(e){
-//     e.preventDefault();
-//     fetch("/login", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({ username })
-//       })
-//     .then((r)=>r.json())
-//     .then ((user)=>setUser(user));
-    
-// }
 
 
 function Signup(e){
 e.preventDefault();
 const user={
     username,
-    password
+    password,
+    age,
+    city,
+    name,
+    passwordConfirmation:passwordConfirmation
 }
-fetch('/users',{
+fetch('/signup',{
     method: "POST",
     headers: {
         "Content-type":"Application/Json"
@@ -45,14 +33,14 @@ fetch('/users',{
 })
 .then((r)=>{
     if(r.ok){
-        r.json().then(setUser)
+        r.json().then((user)=>setUser(user))
     }else{
-        r.json().then(e=>setErrors(Object.entries(e.error).flat()))
+        r.json().then((err)=>setErrors(err.errors))
     }
-})
+});
 }
 
-console.log(user)
+
     return(
         <div>
         <form onSubmit={Signup}>
@@ -70,34 +58,46 @@ console.log(user)
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
             />
-             {/* <label>Where are you from?</label>
+            <label htmlFor="password">Password Confirmation</label>
+        <input
+          type="password"
+          id="password_confirmation"
+          value={passwordConfirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+          autoComplete="current-password"
+        />
+             <label>Where are you from?</label>
             <input
             type="text"
             id="city"
-            value={user.city}
-            onChange={(e)=>setUser(e.target.value)}
+            value={city}
+            onChange={(e)=>setCity(e.target.value)}
             /> 
             <label>How old are you?</label>
             <input
             type="text"
             id="age"
-            value={user.username}
-            onChange={(e)=>setUser(e.target.value)}
+            value={age}
+            onChange={(e)=>setAge(e.target.value)}
             />
              <label>Your first name</label>
             <input
             type="text"
             id="name"
-            value={user.name}
-            onChange={(e)=>setUser(e.target.value)}
-            /> */}
+            value={name}
+            onChange={(e)=>setName(e.target.value)}
+            />
             <div className="Form Control">
                 <label></label>
                 <button type="submit">Signup</button>
             </div>
         </form>
         <form></form>
-
+        <p>
+        {errors.map((error) => {
+          return <ul key={error}>{error}</ul>
+        })}
+        </p>
         </div>
 
 
@@ -110,4 +110,4 @@ console.log(user)
 
 
 
-export default Auth
+export default SignUp

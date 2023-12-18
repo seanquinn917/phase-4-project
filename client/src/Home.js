@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import Login from "./Login";
 
 
 
@@ -13,10 +14,8 @@ function Home({user, setUser}){
           }
         })
       }, []);
+     if(!user) return <Login/>
     
-      if(user){
-        return <h2>Welcome, {user.name}!</h2>
-      } else {
         
       
 
@@ -29,7 +28,7 @@ function Home({user, setUser}){
         Not a member? <Link to={'/signup'}> click here to Signup</Link>
         </p>
         </div>
-        )}
+        )
 };
 
 

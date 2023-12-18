@@ -82,12 +82,8 @@ const movie = movies.find(movie=>movie.id===parseInt(id))
                </ul>
                <form onSubmit={addNewReview}>
                 <ul>
-                <li><label>What's your name?</label>
-                <input type="text" name="name" value={newReviewContent.name} onChange={handleReviewFormChange}></input></li>
-                <li><label>Where are you from?</label>
-                <input type="text" name="city" value={newReviewContent.city} onChange={handleReviewFormChange}></input></li>
-                <li><label>What did you think??</label>
-                <input type="text" name="content" value={newReviewContent.content} onChange={handleReviewFormChange}></input></li>
+                <label>What did you think??</label>
+                <input type="text" name="content" value={newReviewContent.content} onChange={handleReviewFormChange}></input>
                 </ul>
                 <input type="submit" value="submit"></input>
                </form>

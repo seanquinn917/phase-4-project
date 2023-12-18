@@ -1,10 +1,13 @@
 import React from "react";
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import MovieTile from "./MovieTile";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function MovieList({movies, setMovies}){
 const{id}=useParams()
+
+
+
 
 const [newMovieForm, setNewMovieForm]=useState({
   title: "",
