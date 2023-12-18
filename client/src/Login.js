@@ -1,6 +1,7 @@
 import React from "react";
 import SignUp from "./SignUp";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -28,6 +29,10 @@ function Login({user, setUser}){
         })
     } 
 console.log(user)
+
+
+
+
     return(
         <span>
         <form onSubmit={onLogin}>
@@ -38,7 +43,6 @@ console.log(user)
             value = {username}
             onChange={(e)=>setUsername(e.target.value)}
         />
-    
         <lable>Password</lable>
         <input 
         type="text" 
@@ -47,10 +51,10 @@ console.log(user)
         onChange={(e)=>setPassword(e.target.value)}
         />
     <button typ="submit">Login</button>
-    {/* {errors.map((error)=>{
-        return <li key={error}>{error}</li>
-    })} */}
     </form>
+    <p>
+    Not a member? <Link to='/signup'>Click here to sign up</Link>
+    </p>
     </span>
     )
 };

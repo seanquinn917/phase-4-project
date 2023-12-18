@@ -6,11 +6,17 @@ class UsersController < ApplicationController
     end 
 
     def show
-            user=User.find_by(id:params[:id])
-            if user
-                render json: user
+        if session[:user_id].present?   
+        user=User.find_by(id: session[:user_id])
+                render json: {
+                    id:user.id,
+                    name:user.name,
+                    username:user.username,
+                    age:user.age,
+                    city:user.city
+                }, status: :created
             else 
-               render json: {error: "Not Authorized"}, status: :unauthorized
+               render json: {error: "Unauthorized"}, status: :unauthorized
         end
     end
 

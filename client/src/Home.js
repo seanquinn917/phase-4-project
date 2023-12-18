@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import Login from "./Login";
+import MovieList from "./MovieList"
 
 
 
@@ -14,11 +15,15 @@ function Home({user, setUser}){
           }
         })
       }, []);
-     if(!user) return <Login/>
+
+     if(!user) {
+      return <Login user={user} setUser={setUser}/>
+    }
+      
     
         
       
-
+console.log(user)
 
     return(
 
