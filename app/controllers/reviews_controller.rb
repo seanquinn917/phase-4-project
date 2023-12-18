@@ -22,6 +22,10 @@ class ReviewsController < ApplicationController
         head :no_content
     end
 
+    def update 
+
+    end
+
 
     private
 

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "/movies", to: "movies#index"
   get "/movies/:id", to: "movies#show"
   post '/movies', to: "movies#create"
-  delete '/movies/:id',to: 'movies#destroy'
+  delete '/movies/:id', to: 'movies#destroy'
 
   resources :reviews
 
@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   
   resources :users
   
+  get"/users/", to: "users#index"
+
   post "/login", to: "sessions#create"
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

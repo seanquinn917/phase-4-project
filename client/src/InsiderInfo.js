@@ -6,6 +6,10 @@ import { useState } from "react";
 
 
 function InsiderInfo({movies, setMovies}){
+
+   
+
+
 const {id}=useParams()
 const[newReviewContent, setNewReviewContent]=useState({
     content:"",

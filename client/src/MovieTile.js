@@ -11,7 +11,7 @@ function deleteMovie(e){
     fetch(`/movies/${id}`,{
       method: "DELETE",
     })
-    .then((r)=>r.json())
+    .then((r)=> r.json())
     .then(()=>{
       setMovies(movies=>{
         return movies.filter((movie)=>movie.id!==id)
