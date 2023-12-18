@@ -9,6 +9,9 @@ import InsiderInfo from './InsiderInfo';
 
 function App() {
  const [movies, setMovies]=useState([])
+ const [user, setUser]=useState(null)
+
+
 
 
   useEffect(()=>{
@@ -23,9 +26,9 @@ function App() {
       <div className="App">
        <BrowserRouter>
           <Routes>
-            <Route path="/login" element={<Auth />} />
+            <Route path="/signup" element={<Auth />} />
             <Route path= "/movies" element={<MovieList movies={movies} id={movies.id} setMovies={setMovies}/>}/>
-            <Route path="/" element={<Home/>}/>
+            <Route path="/" element={<Home user={user} setUser={setUser}/>}/>
             <Route path= '/movies/:id' element={<InsiderInfo movies={movies} setMovies={setMovies}/>}/>
           </Routes>
       </BrowserRouter>

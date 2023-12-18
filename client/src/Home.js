@@ -1,19 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 
 
-function Home(){
+function Home({user, setUser}){
 
+    useEffect(()=>{
+        fetch('/me').then((r)=> {
+          if (r.ok) {
+            r.json().then((user)=> setUser(user))
+          }
+        })
+      }, []);
+    
+      if(user){
+        return <h2>Welcome, {user.name}!</h2>
+      } else {
+        
+      
 
 
     return(
 
-        <div>Welcome to my home page
-        <Link to={'/login'}> click here to Login</Link>
-        
+        <div>
+            <p>
+                Welcome!
+        Not a member? <Link to={'/signup'}> click here to Signup</Link>
+        </p>
         </div>
-    )
+        )}
 };
 
 
