@@ -82,8 +82,8 @@ const movie = movies.find(movie=>movie.id===parseInt(id))
    
    const reviews= movie.reviews.map((review)=>{
     const user = movie.users.find((user) => user.id === review.user_id);
-    console.log(user)
-    return <ul>{review.content} said {user.name} from {user.city}</ul>
+   
+    return <ul>{review.content} said {user.name} from {user.city} <button onClick={deleteReview}>Delete review</button></ul>
    })
 
     return(
