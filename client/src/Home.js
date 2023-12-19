@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import Login from "./Login";
 import MovieList from "./MovieList"
+import { useContext } from "react";
+import UserContext from "./User-context";
 
 
+function Home(){
+const [user, setUser]=useContext(UserContext)
 
-function Home({user, setUser}){
 
     useEffect(()=>{
         fetch('/me').then((r)=> {

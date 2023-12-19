@@ -1,10 +1,14 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
+import styled from "styled-components";
+import Button from "./styles/Button";
+
+
 
 
 function MovieTile({id, title, director, genre, setMovies}){
 
-
+ 
 
 function deleteMovie(e){
     e.preventDefault();
@@ -26,7 +30,7 @@ function deleteMovie(e){
             <li>{director}</li>
             <li>{genre}</li>
             <Link to={`/movies/${id}`}>Insider Info</Link>
-            <button onClick={deleteMovie}>Delete</button>
+            <Button onClick={deleteMovie}>Delete</Button>
         </div>
     )
 };

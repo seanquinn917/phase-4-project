@@ -2,11 +2,13 @@ import React from "react";
 import MovieList from "./MovieList";
 import { json, useParams } from "react-router-dom";
 import { useState } from "react";
+import { useContext } from "react";
+import UserContext from "./User-context";
 
 
+function InsiderInfo({ movies, setMovies}){
 
-function InsiderInfo({user, movies, setMovies}){
-
+const [user, setUser]=useContext(UserContext)
    
 console.log(user)
 

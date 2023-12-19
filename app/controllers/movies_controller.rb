@@ -7,12 +7,12 @@ class MoviesController < ApplicationController
         if movie.any?
         render json: movie, include: :reviews
         else 
-            render json: {errors: ["Unauthorized"]}, status: :Unauthorized
+            render json: {errors: ["Unauthorized"]}, status: :unauthorized
         end
-    else 
-        render json: {errors: ["Unauthorized"]}, status: :unauthorized
+        else 
+            render json: {errors: ["Unauthorized"]}, status: :unauthorized
     end
-    end
+end
 
     def show
         movie = Movie.find_by(id:params[:id])

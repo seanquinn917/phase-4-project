@@ -4,10 +4,12 @@ import MovieTile from "./MovieTile";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import UserContext from "./User-context";
+import Wrapper from "./styles/Wrapper";
 
 function MovieList({user, movies, setMovies}){
 const{id}=useParams()
 
+// const [user, setUser]=useContext(UserContext)
 
 console.log(user)
 
@@ -50,8 +52,8 @@ function addNewMovie(e){
     
 
 return(
-
-<div>
+<Wrapper>
+<body>
     {movies.map((movie)=>{
       return  <MovieTile
       key={movie.id}
@@ -73,8 +75,8 @@ return(
         <input type="submit" value="submit"/>
         
     </form>
-</div>
-
+</body>
+</Wrapper>
 )
 
 
