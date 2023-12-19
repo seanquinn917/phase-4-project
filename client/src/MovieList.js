@@ -5,11 +5,11 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import UserContext from "./User-context";
 
-function MovieList({ movies, setMovies}){
+function MovieList({user, movies, setMovies}){
 const{id}=useParams()
 
-const [user, setUser]= useContext(UserContext)
 
+console.log(user)
 
 const [newMovieForm, setNewMovieForm]=useState({
   title: "",

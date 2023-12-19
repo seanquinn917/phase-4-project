@@ -7,7 +7,7 @@ import MovieList from './MovieList';
 import Home from './Home';
 import InsiderInfo from './InsiderInfo';
 import Login from './Login';
-import UserContext from './User-context';
+import UserContext, { UserProvider }from './User-context'; 
 
 function App() {
  
@@ -28,7 +28,7 @@ function App() {
   return (
     
       <div className="App">
-      <UserContext.Provider value={[user, setUser]}/>
+      <UserProvider>
        <BrowserRouter>
           <Routes>
             <Route path="/signup" element={<SignUp />} />
@@ -38,7 +38,7 @@ function App() {
             <Route path="/login" element={<Login user={user} setUser={setUser}/>}/>
           </Routes>
       </BrowserRouter>
-      <UserContext.Provider/>
+      </UserProvider>
     </div>  
     
   );

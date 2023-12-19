@@ -13,8 +13,8 @@ console.log(user)
 const {id}=useParams()
 const[newReviewContent, setNewReviewContent]=useState({
     content:"",
-    name:"",
-    city:"",
+    // name:"",
+    // city:"",
     movie_id :id
 })
 
@@ -30,8 +30,8 @@ const movie = movies.find(movie=>movie.id===parseInt(id))
             },
             body:JSON.stringify({
                 content:newReviewContent.content,
-                name:newReviewContent.name,
-                city:newReviewContent.city,
+                // name:newReviewContent.name,
+                // city:newReviewContent.city,
                 movie_id: id
             })
         })
@@ -43,6 +43,22 @@ const movie = movies.find(movie=>movie.id===parseInt(id))
             setMovies(updatedMovies)
         })
 
+    }
+
+    function deleteReview(reviewId){
+        fetch(`/reviews/${reviewId}`,{
+            method:"DELETE",
+        })
+        .then((r)=>r.json())
+        .then((deletedReview)=>{
+            const updatedMovies= movies.map((movie)=>{
+                if(movie.id === deletedReview.movie_id){
+                    const updatedMovies ={ ...movies, reviews:movies.filter((review)=>review.id !== deletedReview.id)}
+                    return updatedMovies
+                }else return movie
+            })
+            setMovies(updatedMovies)
+        })
     }
 
 

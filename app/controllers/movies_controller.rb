@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-
+    skip_before_action :authorized, only: :index
 
     def index
         if session[:user_id]
@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
             render json: {errors: ["Unauthorized"]}, status: :Unauthorized
         end
     else 
-        rend json: {errors: ["Unauthorized"]}, status: :unauthorized
+        render json: {errors: ["Unauthorized"]}, status: :unauthorized
     end
     end
 
