@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-    skip_before_action :authorized, only: :index
+    # skip_before_action :authorized, only: :index
 
     def index
         if session[:user_id]

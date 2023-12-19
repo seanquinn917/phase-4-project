@@ -6,10 +6,10 @@ import { useContext } from "react";
 import UserContext from "./User-context";
 import Wrapper from "./styles/Wrapper";
 
-function MovieList({user, movies, setMovies}){
+function MovieList({movies, setMovies}){
 const{id}=useParams()
 
-// const [user, setUser]=useContext(UserContext)
+const [user, setUser]=useContext(UserContext)
 
 console.log(user)
 
