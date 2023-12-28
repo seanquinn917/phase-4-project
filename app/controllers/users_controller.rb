@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authorized, only: [:index, :create, :show]
+    skip_before_action :authorized, only: [:index, :create]
 
     def index
         users = User.all
@@ -7,11 +7,13 @@ class UsersController < ApplicationController
     end 
 
     def show
+     
         if session[:user_id]
+         
           user = User.find_by(id: session[:user_id])
-          
           render json: user, status: :ok
-        
+          puts session[:user_id]
+       
         else
           render json: { error: "User not found" }, status: :not_found
         end

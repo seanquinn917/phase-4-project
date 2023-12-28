@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
 
-    skip_before_action :authorized, only: [:index, :show]
+    skip_before_action :authorized, only: [:index, :show, :destroy]
     def index
         reviews = Review.all
         render json: reviews, include: :users
@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
     end
 
     def destroy
-        byebug
+       
         review=Review.find_by(id:params[:id])
         review.destroy
         head :no_content

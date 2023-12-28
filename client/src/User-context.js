@@ -7,21 +7,7 @@ const UserContext = createContext(null);
 export const UserProvider = ({children}) =>{
     const [user, setUser]= useState(null);
 
-    
   
-
-    // useEffect(() => {
-    //   // auto-login
-    //   console.log("Making request to /me")
-    //   fetch("/me").then((r) => {
-    //     if (r.ok) {
-    //       r.json().then((user) => { 
-    //         setUser(user)
-    //       console.log(user)});
-    //     }
-    //   });
-    // }, []);
-
     
   useEffect(() => {
     console.log("hello from context")
@@ -36,7 +22,7 @@ export const UserProvider = ({children}) =>{
         console.log(error);
       }
     };
-
+console.log(user)
     fetchData();
   }, []);
 

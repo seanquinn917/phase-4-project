@@ -10,9 +10,7 @@ import { useEffect } from "react";
 function InsiderInfo({ movies, setMovies}){
 const {id}=useParams()
 const [user, setUser]=useContext(UserContext)
-// const userId = user ? user.id : null
 
-// console.log(user)
 const[newReviewContent, setNewReviewContent]=useState({
     content:"",
     movie_id :id,
@@ -20,7 +18,7 @@ const[newReviewContent, setNewReviewContent]=useState({
 })
 console.log(user)
 const movie = movies.find((movie)=>movie.id===parseInt(id))
-// console.log(movie)
+
 
 useEffect(() => {
     fetch('/current_user')
@@ -72,64 +70,42 @@ console.log(user)
 
     }
 
-    // function deleteReview(reviewId){
-    //     console.log(reviewId)
-    //     console.log(user.id)
-    //     fetch(`/reviews/${reviewId}`,{
-    //         method:"DELETE",
-    //     })
-    //     .then((r)=>{
-    //       if(r.ok) {
-    //         console.log(r)
-    //         return r.json()
-    //       }else {
-    //         throw new Error("Failed to delete review");
-    //       }
-    //       })
-    //     .then((deletedReview)=>{
-    //       if (!deletedReview) {
-    //         throw new Error("Deleted review is undefined");
-    //       }
-    //         const updatedMovies= movies.map((movie)=>{
-    //             if(movie.id === deletedReview.movie_id){
-    //                 const updatedMovie = { ...movie, 
-    //                   reviews: movie.reviews.filter((review)=>review.id !== deletedReview.id)}
-    //                 return updatedMovie
-    //             }else return movie
-    //         })
-    //         setMovies(updatedMovies)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //       // Handle the error or display an error message to the user
-    //     });
-    // }
-
-    function deleteReview(reviewId) {
-      console.log(reviewId);
-      console.log(user.id);
-      fetch(`/reviews/${reviewId}`, {
-        method: "DELETE",
+    function deleteReview(reviewId){
+    fetch(`/reviews/${reviewId}`, {
+      method: "DELETE",
+    })
+      .then((r) => {
+        if (r.status === 204) {
+          // Deletion was successful, no content to parse
+          return null;
+        } else {
+          // Parse the response as JSON
+          return r.json();
+        }
       })
-        .then((r) =>  r.json())
-        .then((deletedReview) => {
-          if (!deletedReview) {
-            throw new Error("Deleted review is undefined");
-          }
+      .then((deletedReview) => {
+        if (deletedReview === null) {
+          // Deletion was successful, handle accordingly
+          // e.g., remove the deleted review from the movies array
           const updatedMovies = movies.map((movie) => {
-            if (movie.id === deletedReview.movie_id) {
-              const updatedMovie = {
-                ...movie,
-                reviews: movie.reviews.filter((review) => review.id !== deletedReview.id),
-              };
-              return updatedMovie;
-            } else {
-              return movie;
-            }
+            const updatedReviews = movie.reviews.filter(
+              (review) => review.id !== reviewId
+            );
+            return {
+              ...movie,
+              reviews: updatedReviews,
+            };
           });
           setMovies(updatedMovies);
-        })
+        } else {
+          // Handle the response as JSON in case of an error or unexpected response
+          // ...
+          console.log("oops")
+        }
+      });
     }
+
+
 
     function handleReviewFormChange(e){
         e.preventDefault()

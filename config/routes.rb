@@ -16,12 +16,12 @@ Rails.application.routes.draw do
   
   resources :users
 
- 
+  
   get"/users", to: "users#index"
   get "/users/:id", to: "users#show"
   post'/signup', to:"users#create"
-
   get "/me", to: "users#show"
+
   
   get '/current_user', to: 'sessions#get_current_user'
   post "/login", to: "sessions#create"
