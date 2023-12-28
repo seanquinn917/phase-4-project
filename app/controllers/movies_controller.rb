@@ -22,6 +22,10 @@ class MoviesController < ApplicationController
         head :no_content
     end
 
+private
 
+def movie_params
+    params.permit(:title, :director,:genre)
+end
 
 end
