@@ -10,14 +10,20 @@ Rails.application.routes.draw do
   resources :reviews
 
   get"/reviews", to: "reviews#index"
+  get"/reviews", to: "reviews#show"
   post "/reviews",to: "reviews#create"
+  delete "/reviews/:id", to: "reviews#destroy"
   
   resources :users
 
-  get"/me", to:"users#show"
+ 
   get"/users", to: "users#index"
+  get "/users/:id", to: "users#show"
   post'/signup', to:"users#create"
+
+  get "/me", to: "users#show"
   
+  get '/current_user', to: 'sessions#get_current_user'
   post "/login", to: "sessions#create"
   delete "/logout", to:"sessions#destroy"
   # Routing logic: fallback requests for React Router.

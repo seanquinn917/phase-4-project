@@ -8,10 +8,12 @@ import Home from './Home';
 import InsiderInfo from './InsiderInfo';
 import Login from './Login';
 import UserContext, { UserProvider }from './User-context'; 
+import Nav from './Nav';
+
 
 function App() {
  
- const [user, setUser]=useState(null)
+ const [user, setUser]=useState(UserContext)
  const [movies, setMovies]=useState([])
 
 
@@ -28,19 +30,21 @@ function App() {
   return (
     
       <div className="App">
-      <UserProvider>
        <BrowserRouter>
+      <UserProvider>
+      <Nav movies={movies}/>
+      
           <Routes>
             <Route path="/signup" element={<SignUp />} />
-            <Route path= "/movies" element={<MovieList user={user}movies={movies} setMovies={setMovies}/>}/>
+            <Route path= "/movies" element={<MovieList movies={movies} setMovies={setMovies}/>}/>
             <Route path="/" element={<Home user={user} setUser={setUser}/>}/>
-            <Route path= '/movies/:id' element={<InsiderInfo user={user} movies={movies} setMovies={setMovies}/>}/>
+            <Route path= '/movies/:id' element={<InsiderInfo  movies={movies} setMovies={setMovies}/>}/>
             <Route path="/login" element={<Login user={user} setUser={setUser}/>}/>
           </Routes>
-      </BrowserRouter>
+      
       </UserProvider>
+      </BrowserRouter>
     </div>  
-    
   );
 }
 

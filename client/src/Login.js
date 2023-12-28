@@ -17,27 +17,55 @@ function Login(){
     const navigate=useNavigate()
 
 
-    function onLogin(e){
-        e.preventDefault();
-        fetch("/login",{
-            method: "POST",
-            headers: {
-                "Content-type":"Application/json",
-            },
-            body: JSON.stringify({username, password}),
-        }).then((r)=>{
-            if(r.ok){
-                r.json()
-                .then((loggedInUser)=> {
-                    setUser(loggedInUser)
-                    navigate('/movies')});
-            } else {
-            r.json().then((error)=> console.log(error.errors));
-            }
-        })
-    } 
-console.log(user)
+    // function onLogin(e){
+    //     e.preventDefault();
+    //     fetch("/login",{
+    //         method: "POST",
+    //         headers: {
+    //             "Content-type":"Application/json",
+    //         },
+    //         body: JSON.stringify({username, password}),
+    //     })
+    //     .then((r)=>{
+    //         if(r.ok){
+    //             console.log(r)
+    //             return r.json();
+    //         }
+    //             .then((user)=> {
+    //                 setUser(user)
+    //                 console.log(user)
+    //                 navigate('/movies')});
+    //         } else {
+    //         r.json().then((error)=> console.log(error.errors));
+    //         }
+    //     })
+    // } 
 
+    function onLogin(e) {
+        e.preventDefault();
+        fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        })
+          .then((r) => {
+            if (r.ok) {
+              return r.json();
+            } else {
+              throw new Error("Login failed");
+            }
+          })
+          .then((user) => {
+            setUser(user);
+            navigate("/movies");
+          })
+          .catch((error) => {
+            console.log(error);
+            // Handle login failure
+          });
+      }
 
 
 

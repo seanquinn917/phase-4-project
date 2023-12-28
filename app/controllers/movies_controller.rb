@@ -1,26 +1,14 @@
 class MoviesController < ApplicationController
-    # skip_before_action :authorized, only: :index
+    skip_before_action :authorized, only: [:index, :show]
 
     def index
-        if session[:user_id]
-        movie = Movie.all
-        if movie.any?
-        render json: movie, include: :reviews
-        else 
-            render json: {errors: ["Unauthorized"]}, status: :unauthorized
-        end
-        else 
-            render json: {errors: ["Unauthorized"]}, status: :unauthorized
+        movies = Movie.all
+        render json: movies
     end
-end
 
     def show
-        movie = Movie.find_by(id:params[:id])
-        if !movie
-            render json: {errors: "movie not found"}, status: :not_found
-        else
-            render json: movie, include: :reviews, status: :ok
-        end
+        movie= Movie.find_by(id:params[:id])
+        render json: movie, status: :ok
     end
 
     def create 
@@ -36,9 +24,4 @@ end
 
 
 
-    private
-
-    def movie_params
-        params.permit(:id, :title, :director, :genre)
-    end
 end

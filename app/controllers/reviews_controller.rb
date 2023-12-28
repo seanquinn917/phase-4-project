@@ -1,7 +1,6 @@
 class ReviewsController < ApplicationController
 
-    skip_before_action :authorized
-
+    skip_before_action :authorized, only: [:index, :show]
     def index
         reviews = Review.all
         render json: reviews, include: :users
@@ -9,7 +8,7 @@ class ReviewsController < ApplicationController
 
     def show
         review=Review.find_by(id:params[:id])
-        render json: review, include: :user
+        render json: review
     end
 
     def create
@@ -18,6 +17,7 @@ class ReviewsController < ApplicationController
     end
 
     def destroy
+        byebug
         review=Review.find_by(id:params[:id])
         review.destroy
         head :no_content
@@ -34,10 +34,11 @@ class ReviewsController < ApplicationController
     end
 
 
+
     private
 
     def review_params
-        params.permit( :movie, :content, :movie_id, :name, :city, :review)
+        params.require(:review).permit(:id, :content, :movie_id, :user_id)
     end
 
 end

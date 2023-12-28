@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.topNav {
+  text-align: center;
+  font-size: 18px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #9e1d1d;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+.navList{
+  display: inline;
+  background-color: black;
+}
+.navItem {
+  display: inline-block;
+  margin: 0 10px; /* Add some margin between the list items */
+}
+
+.reviewBlock{
+  list-style: none;
+}

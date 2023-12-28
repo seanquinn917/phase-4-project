@@ -11,23 +11,11 @@ function Home(){
 const [user, setUser]=useContext(UserContext)
 
 
-    useEffect(()=>{
-        fetch('/me').then((r)=> {
-          if (r.ok) {
-            r.json().then((user)=> setUser(user))
-          }
-        })
-      }, []);
-
      if(!user) {
       return <Login user={user} setUser={setUser}/>
     }
       
-    
-        
-      
-console.log(user)
-
+  
     return(
 
         <div>
