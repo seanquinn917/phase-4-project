@@ -47,7 +47,7 @@ fetch('/signup',{
             <label>Create a username</label>
             <input
             type="text"
-            id="name"
+            id="username"
             value={username}
             onChange={(e)=>setUserName(e.target.value)}
             />
@@ -94,9 +94,9 @@ fetch('/signup',{
         </form>
         <form></form>
         <p>
-        {errors.map((error) => {
+        {/* {errors.map((error) => {
           return <ul key={error}>{error}</ul>
-        })}
+        })} */}
         </p>
         </div>
 

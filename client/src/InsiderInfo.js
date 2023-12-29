@@ -10,45 +10,21 @@ import { useEffect } from "react";
 function InsiderInfo({ movies, setMovies}){
 const {id}=useParams()
 const [user, setUser]=useContext(UserContext)
+const [showForm, setShowForm]=useState(false)
 
 const[newReviewContent, setNewReviewContent]=useState({
     content:"",
     movie_id :id,
-    user_id: user ? user.id : null
 })
-console.log(user)
+
+
+
 const movie = movies.find((movie)=>movie.id===parseInt(id))
-
-
-useEffect(() => {
-    fetch('/current_user')
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Failed to fetch current user');
-        }
-      })
-      .then((user) => {
-        setUser(user);
-        setNewReviewContent((prevReviewContent) => ({
-          ...prevReviewContent,
-          user_id: user ? user.id : null,
-        }))
-      })
-      .catch((error) => {
-        console.log(error);
-        // Handle the error or redirect to the login page if necessary
-      });
-  }, []);
-
-
-console.log(user)
 
 
     function addNewReview(e){
         e.preventDefault()
-        console.log(newReviewContent.user_id)
+        console.log("userID", newReviewContent.user_id)
         fetch('/reviews',{
             method: "POST",
             headers:{
@@ -57,11 +33,12 @@ console.log(user)
             body:JSON.stringify({
                 content:newReviewContent.content,
                 movie_id: newReviewContent.movie_id,
-                user_id:newReviewContent.user_id
+                user_id:user.id
             })
         })
         .then((r)=>r.json())
         .then((newreview)=>{
+          console.log(newreview)
             const updatedMovies=[...movies]
             const targetMovie=updatedMovies.find((r)=>r.id ===parseInt(id))
             targetMovie.reviews.push(newreview)
@@ -107,6 +84,55 @@ console.log(user)
 
 
 
+    const[updateReviewContent, setUpdateReviewContent]=useState({
+      reviewId: null,
+      content:"",
+      movie_id :id,
+    })
+    
+    function updateReviewFormChange(e, reviewId) {
+      e.preventDefault();
+      setUpdateReviewContent({
+        ...updateReviewContent,
+        reviewId: reviewId,
+        content: e.target.value,
+      });
+    }
+    
+
+    function updateReview(reviewId, e){
+      e.preventDefault()
+      console.log("click")
+      e.preventDefault();
+       console.log(reviewId)
+      fetch(`/reviews/${reviewId}`,{
+        method: "PATCH",
+        headers:{
+          "Content-type":"application/json"
+        },
+        body:JSON.stringify({
+          content:updateReviewContent.content,
+          movie_id: updateReviewContent.movie_id,
+          user_id:user.id,
+        })
+      })
+      .then((r)=>r.json())
+      .then((newContent)=>{
+        const updatedMovies = [...movies]
+        const targetMovie = updatedMovies.find((movie)=>movie.id === parseInt(id))
+        targetMovie.reviews = targetMovie.reviews.map((review)=>{
+          if(review.id === reviewId){
+            return newContent;
+          } else {
+            return review;
+          }
+        })
+        setMovies(updatedMovies)
+        setShowForm(!showForm)
+      })
+    }
+
+
     function handleReviewFormChange(e){
         e.preventDefault()
         setNewReviewContent({
@@ -116,6 +142,14 @@ console.log(user)
 
     }
     
+  //   function updateReviewFormChange(e){
+  //     e.preventDefault()
+  //     setUpdateReviewContent({
+  //         ...updateReviewContent,
+  //         [e.target.name]:e.target.value
+  //     })
+
+  // }
 
     if(!movie){
         return <h1>Loading...</h1>
@@ -125,14 +159,7 @@ console.log(user)
       return <p>Loading User...</p>;
     }
    
-//    const movieReviews= movie.reviews.map((review)=>{
-   
-//    if(user.id === review.user_id){
-//     return <li key={review.id}>{review.content} said {review.username} from {review.usercity} <button onClick={()=>deleteReview(review.id)}>Delete review</button></li>
-// }else{
-//     return <li>{review.content} said {review.username} from {review.usercity}</li>
-// }
-// })
+
 
 const movieReviews = movie.reviews.map((review) => {
     if (user.id === review.user_id) {
@@ -140,6 +167,13 @@ const movieReviews = movie.reviews.map((review) => {
         <li key={review.id}>
           {review.content} said {review.username} from {review.usercity}{" "}
           <button onClick={() => deleteReview(review.id)}>Delete review</button>
+          <button onClick={()=>{
+            setUpdateReviewContent((prevContent) => ({
+              ...prevContent,
+              reviewId: review.id,
+            }));
+            setShowForm(!showForm)}}>Edit</button>
+          
         </li>
       );
     } else {
@@ -163,6 +197,13 @@ const movieReviews = movie.reviews.map((review) => {
                   <ul className="reviewBlock">
                 {movieReviews}
                </ul>
+               {showForm? (
+               <form onSubmit={(e)=>updateReview(updateReviewContent.reviewId, e)}>
+            <label>change your mind {user.name}?</label>
+            <input type="text" name="content" value={updateReviewContent.content}  onChange={(e)=>updateReviewFormChange(e, updateReviewContent.reviewId)}></input>
+            <input type="submit" value="submit"></input>
+            </form>
+            ) : null}
                <form onSubmit={addNewReview}>
                 <ul>
                 <label>What did you think??</label>

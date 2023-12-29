@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
 
-    skip_before_action :authorized, only: [:index, :show, :destroy]
+    skip_before_action :authorized, only: [:index, :show]
     def index
         reviews = Review.all
         render json: reviews, include: :users
@@ -24,6 +24,7 @@ class ReviewsController < ApplicationController
     end
 
     def update 
+        
         review=Review.find_by(id:params[:id])
         if review
             review.update(review_params)
