@@ -5,7 +5,8 @@ import { useState } from "react";
 import { useContext } from "react";
 import UserContext from "./User-context";
 import { useEffect } from "react";
-
+import './App.css';
+import InsiderWrap from "./styles/InsiderWrap";
 
 function InsiderInfo({ movies, setMovies}){
 const {id}=useParams()
@@ -164,8 +165,8 @@ const movie = movies.find((movie)=>movie.id===parseInt(id))
 const movieReviews = movie.reviews.map((review) => {
     if (user.id === review.user_id) {
       return (
-        <li key={review.id}>
-          {review.content} said {review.username} from {review.usercity}{" "}
+        <li className="review" key={review.id}>
+          "{review.content}" said {review.username} from {review.usercity}{" "}
           <button onClick={() => deleteReview(review.id)}>Delete review</button>
           <button onClick={()=>{
             setUpdateReviewContent((prevContent) => ({
@@ -178,8 +179,8 @@ const movieReviews = movie.reviews.map((review) => {
       );
     } else {
       return (
-        <li key={review.id}>
-          {review.content} said {review.username && `by ${review.username}`}{" "}
+        <li className="review" key={review.id}>
+          "{review.content}" said {review.username && `by ${review.username}`}{" "}
           {review.usercity && `from ${review.usercity}`}
         </li>
       );
@@ -187,13 +188,15 @@ const movieReviews = movie.reviews.map((review) => {
   });
 
     return(
-        <div> <header key={movie.id}> 
+      <InsiderWrap>
+        <body>
+        <div className="Info"> <header key={movie.id}> 
            
                 <h1>{movie.title}</h1>
                 <h2>{movie.director}</h2>
                 <h3>{movie.genre}</h3>
                 </header>
-                  What did the people have to say?
+                  <h4>What the people have to say:</h4>
                   <ul className="reviewBlock">
                 {movieReviews}
                </ul>
@@ -212,8 +215,8 @@ const movieReviews = movie.reviews.map((review) => {
                 <input type="submit" value="submit"></input>
                </form>
         </div>
-
-
+        </body>
+        </InsiderWrap>
     )
 }
 

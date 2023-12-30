@@ -36,3 +36,37 @@
     transform: rotate(360deg);
   }
 }
+.grid{
+  display:grid;
+}
+.tile{
+  background-blend-mode:overlay;
+}
+.tile h1{
+  color: #f1f3ef;
+  text-decoration: underline;
+  font-size: xx-large
+}
+.tile li{
+  list-style: none;
+  color: #f1f3ee;
+  text-decoration:double;
+  font-size: larger;
+}
+.tile link{
+  color: #f1f3ee;
+}
+.Info h1{
+ font-size: xx-large;
+ text-decoration: underline;
+}
+.Info h2{
+  font-size: x-large;
+ 
+}
+.Info h3{
+  font-size: x-large;
+}
+.review{
+  font-size: large;
+}

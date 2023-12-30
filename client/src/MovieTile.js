@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Button from "./styles/Button";
 import { useContext } from "react";
 import UserContext from "./User-context";
-
+import './App.css';
 
 
 function MovieTile({id, title, director, genre, setMovies}){
@@ -29,7 +29,7 @@ function deleteMovie(e){
       
 
     return( 
-        <div>
+        <div className="tile">
             <h1>{title}</h1>
             <li>{director}</li>
             <li>{genre}</li>
