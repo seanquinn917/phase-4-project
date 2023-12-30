@@ -5,7 +5,7 @@ import {  useNavigate } from "react-router-dom";
 function SignUp(){
 const [username, setUserName]=useState("")
 const [password, setPassword]=useState("")
-const [password_confirmation, setPasswordConfirmation]=useState('')
+const [passwordConfirmation, setPasswordConfirmation]=useState('')
 const [user, setUser]=useState(null)
 const[city, setCity]=useState("")
 const[name, setName]=useState('')
@@ -15,37 +15,36 @@ const [errors, setErrors]=useState([])
 const navigate=useNavigate()
 
 
-function signUp(e){
-e.preventDefault();
-const newUser={
-    username,
-    age,
-    city,
-    name,
-    password,
-    password_confirmation
-}
-fetch('/signup',{
-    method: "POST",
-    headers: {
-        "Content-type":"application/json"
-    },
-    body:JSON.stringify(newUser)
-})
-.then((r)=> r.json())
-.then((user) => {
-    setUser(user);
-    console.log(user);
-  })
-  .catch((error) => {
-    console.log("Error:", error);
-  });
+function handleSubmit(e){
+    e.preventDefault();
+    const newUser={
+        username,
+        age,
+        city,
+        name,
+        password,
+        password_confirmation :passwordConfirmation
+    }
+    fetch('/signup',{
+        method: "POST",
+        headers: {
+            "Content-type":"application/json"
+        },
+        body:JSON.stringify(newUser),
+    }).then((r)=> {
+        if(r.ok){
+            r.json()
+        .then((user)=>setUser(user));
+    } else {
+        r.json().then((error)=>console.log(error))
+    }
+    })
 }
 
 
     return(
         <div>
-        <form onSubmit={signUp}>
+        <form onSubmit={handleSubmit}>
             <label>Create a username</label>
             <input
             type="text"
@@ -55,17 +54,16 @@ fetch('/signup',{
             />
             <label>Create a password</label>
             <input
-            type="text"
+            type="password"
             id="password"
             value={password}
-            onChange={(e)=>setPassword(e.target.value)
-            }
+            onChange={(e)=>setPassword(e.target.value)}
             />
             <label>Confirm password</label>
             <input
-            type="text"
+            type="password"
             id="password_confirmation"
-            value={password_confirmation}
+            value={passwordConfirmation}
             onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
              <label>Where are you from?</label>
