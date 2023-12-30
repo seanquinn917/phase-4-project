@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "/users/:id", to: "users#show"
   post'/signup', to:"users#create"
   get "/me", to: "users#show"
+  delete "/users/:id", to: "users#destroy"
 
   
   get '/current_user', to: 'sessions#get_current_user'

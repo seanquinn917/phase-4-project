@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import UserContext from "./User-context";
 import Wrapper from "./styles/Wrapper";
+import './App.css';
 
 function MovieList({movies, setMovies}){
 const{id}=useParams()
@@ -56,6 +57,7 @@ if (user === null) {
 return(
 <Wrapper>
 <body>
+  <span className="grid">
     {movies.map((movie)=>{
       return  <MovieTile
       key={movie.id}
@@ -67,6 +69,7 @@ return(
       genre={movie.genre}
     />
     })}
+    </span>
     <form onSubmit={addNewMovie}>Add your favorite movie:
         <label>Movie Title</label>
         <input type="text" name="title" value={newMovieForm.title} onChange={movieFormChange}></input>

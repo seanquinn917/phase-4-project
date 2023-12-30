@@ -5,7 +5,7 @@ import {  useNavigate } from "react-router-dom";
 function SignUp(){
 const [username, setUserName]=useState("")
 const [password, setPassword]=useState("")
-const [passwordConfirmation, setPasswordConfirmation]=useState('')
+const [password_confirmation, setPasswordConfirmation]=useState('')
 const [user, setUser]=useState(null)
 const[city, setCity]=useState("")
 const[name, setName]=useState('')
@@ -15,47 +15,37 @@ const [errors, setErrors]=useState([])
 const navigate=useNavigate()
 
 
-function Signup(e){
+function signUp(e){
 e.preventDefault();
-const user={
+const newUser={
     username,
-    password,
     age,
     city,
     name,
-    passwordConfirmation:passwordConfirmation
+    password,
+    password_confirmation
 }
-console.log("password", password)
 fetch('/signup',{
     method: "POST",
     headers: {
-        "Content-type":"Application/Json"
+        "Content-type":"application/json"
     },
-    body:JSON.stringify(user)
+    body:JSON.stringify(newUser)
 })
-.then((r)=>{
-    if (r.ok) {
-        console.log(r) 
-        r.json();
-      } else {
-        throw new Error("SignUp failed");
-      }})
+.then((r)=> r.json())
 .then((user) => {
-    console.log(user)
-        setUser(user);
-        navigate("/movies");
-        
-      })
-      .catch((error) => {
-        console.log("Error:", error.message);
-        console.log("Server response:", error.response);
-      });
+    setUser(user);
+    console.log(user);
+  })
+  .catch((error) => {
+    console.log("Error:", error);
+  });
 }
 
 
     return(
         <div>
-        <form onSubmit={Signup}>
+        <form onSubmit={signUp}>
             <label>Create a username</label>
             <input
             type="text"
@@ -68,16 +58,16 @@ fetch('/signup',{
             type="text"
             id="password"
             value={password}
-            onChange={(e)=>setPassword(e.target.value)}
+            onChange={(e)=>setPassword(e.target.value)
+            }
             />
-            <label>Password Confirmation</label>
-        <input
-          type="password"
-          id="password_confirmation"
-          value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-          autoComplete="current-password"
-        />
+            <label>Confirm password</label>
+            <input
+            type="text"
+            id="password_confirmation"
+            value={password_confirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+            />
              <label>Where are you from?</label>
             <input
             type="text"
@@ -104,12 +94,6 @@ fetch('/signup',{
                 <button type="submit">Signup</button>
             </div>
         </form>
-        <form></form>
-        <p>
-        {/* {errors.map((error) => {
-          return <ul key={error}>{error}</ul>
-        })} */}
-        </p>
         </div>
 
 

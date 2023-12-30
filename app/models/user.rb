@@ -1,5 +1,9 @@
 class User < ApplicationRecord
+    has_secure_password
     has_many :reviews, dependent: :destroy
     has_many :movies, through: :reviews
-    has_secure_password
+    validates :username, presence: true
+    validates :password, presence: true
+        # Other validations...
+    
 end
