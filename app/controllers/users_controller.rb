@@ -20,14 +20,15 @@ class UsersController < ApplicationController
       end
 
     def create
-       user=User.create(user_params)
+       user=User.create!(user_params)
        if user_params[:password] != user_params[:password_confirmation]
         render json: {errors: "Password does not match"}, status: :unprocessable_entity
-       elsif user.save
+        puts "Password: #{user_params[:password]}, Confirmation: #{user_params[:password_confirmation]}" 
+      elsif user.save
         session[:user_id]=user.id
         render json: user, status: :created
        else
-        render json: {errors: user.errors.full_messgages}, status: :unprocessable_entity
+        render json: {errors: user.errors.full_messages}, status: :unprocessable_entity
        end
     end
 
@@ -42,6 +43,6 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.permit(:id, :name, :age, :city, :password, :username, :review,:password, :password_confirmation)
+        params.require(:user).permit(:id, :name, :age, :city, :password, :username, :review, :password_confirmation)
     end
 end

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-
+import {  useNavigate } from "react-router-dom";
 
 
 function SignUp(){
@@ -12,6 +12,7 @@ const[name, setName]=useState('')
 const[age, setAge]=useState('')
 const [errors, setErrors]=useState([])
 
+const navigate=useNavigate()
 
 
 function Signup(e){
@@ -24,6 +25,7 @@ const user={
     name,
     passwordConfirmation:passwordConfirmation
 }
+console.log("password", password)
 fetch('/signup',{
     method: "POST",
     headers: {
@@ -32,12 +34,22 @@ fetch('/signup',{
     body:JSON.stringify(user)
 })
 .then((r)=>{
-    if(r.ok){
-        r.json().then((user)=>setUser(user))
-    }else{
-        r.json().then((err)=>setErrors(err.errors))
-    }
-});
+    if (r.ok) {
+        console.log(r) 
+        r.json();
+      } else {
+        throw new Error("SignUp failed");
+      }})
+.then((user) => {
+    console.log(user)
+        setUser(user);
+        navigate("/movies");
+        
+      })
+      .catch((error) => {
+        console.log("Error:", error.message);
+        console.log("Server response:", error.response);
+      });
 }
 
 
@@ -58,7 +70,7 @@ fetch('/signup',{
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
             />
-            <label htmlFor="password">Password Confirmation</label>
+            <label>Password Confirmation</label>
         <input
           type="password"
           id="password_confirmation"
