@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "./User-context";
+import './App.css'
 
 
 
@@ -45,7 +46,7 @@ function Login(){
 
 
     return(
-        <span>
+        <body className="login">
         <form onSubmit={onLogin}>
             <lable>Username</lable>
             <input 
@@ -66,7 +67,8 @@ function Login(){
     <p>
     Not a member? <Link to='/signup'>Click here to sign up</Link>
     </p>
-    </span>
+    
+    </body>
     )
 };
 

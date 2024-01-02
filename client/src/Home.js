@@ -5,6 +5,7 @@ import Login from "./Login";
 import MovieList from "./MovieList"
 import { useContext } from "react";
 import UserContext from "./User-context";
+import './App.css'
 
 
 function Home(){
@@ -19,9 +20,9 @@ const [user, setUser]=useContext(UserContext)
     return(
 
         <div>
-            <p>
-                Welcome Back {user.name}!  
-                <Link to="/movies">Click here to Enter</Link>
+            <p className="home">
+                Welcome Back {user.name},  
+                <Link to="/movies">    get back in there!  </Link>
           </p>
         </div>
         )

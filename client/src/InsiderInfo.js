@@ -7,6 +7,7 @@ import UserContext from "./User-context";
 import { useEffect } from "react";
 import './App.css';
 import InsiderWrap from "./styles/InsiderWrap";
+import Button from "./styles/Button";
 
 function InsiderInfo({ movies, setMovies}){
 const {id}=useParams()
@@ -167,13 +168,13 @@ const movieReviews = movie.reviews.map((review) => {
       return (
         <li className="review" key={review.id}>
           "{review.content}" said {review.username} from {review.usercity}{" "}
-          <button onClick={() => deleteReview(review.id)}>Delete review</button>
-          <button onClick={()=>{
+          <Button onClick={() => deleteReview(review.id)}>Delete review</Button>
+          <Button onClick={()=>{
             setUpdateReviewContent((prevContent) => ({
               ...prevContent,
               reviewId: review.id,
             }));
-            setShowForm(!showForm)}}>Edit</button>
+            setShowForm(!showForm)}}>Edit</Button>
           
         </li>
       );

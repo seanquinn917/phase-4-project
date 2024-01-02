@@ -5,6 +5,7 @@ import React, { useParams,  useContext } from "react";
 import MovieList from "./MovieList";
 import "./index.css"
 import Home from "./Home";
+import Button from "./styles/Button";
 
 
 function Nav({movies}){
@@ -27,26 +28,20 @@ function Nav({movies}){
         <div className="NavBar">
             <h1 className="navList">
                 <ul className="topNav">
-                     {/* <li className="topNav"><Link to="/movies">Movies</Link></li> 
-                     <li className="topNav"><Link to="/movies/:id">InsiderInfo</Link></li> 
-                 */}
+                    
                 
                     {user ? (
                         <>
                           <li className="navItem">
                             <Link to="/movies">Movies</Link>
                           </li>
-                          {/* <li className="navItem">
-                            <Link to={`/movies/${movies.id}`}>InsiderInfo</Link>
-                          </li> */}
+                          
                           <li className="navItem" > {user.name}'s MovieWorld!</li>
-                          <button onClick={logOut}>Logout</button>
+                          <Button onClick={logOut}>Logout</Button>
                         </>
                       ) : (
                         <>
-                          {/* <li className="navItem">
-                            <Link to="/login">Login</Link>
-                          </li> */}
+                          {null}
                          
                         </>
                       )}    </ul>

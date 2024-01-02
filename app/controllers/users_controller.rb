@@ -19,13 +19,8 @@ class UsersController < ApplicationController
 
 
       def create
-        user = User.create(user_params)
-        password = user_params[:password]
-        password_confirmation = user_params[:password_confirmation]
-    
-        if password != password_confirmation
-          render json: { errors: ['Password confirmation does not match'] }, status: :unprocessable_entity
-        elsif user.valid?
+        user=User.create(user_params)
+        if user.save
           session[:user_id] = user.id
           render json: user, status: :created
         else 
@@ -79,6 +74,6 @@ class UsersController < ApplicationController
     private
 
     def user_params
-      params.require(:user).permit( :name, :age, :city, :password, :password_confirmation, :username)
+      params.permit( :name, :age, :city, :password, :password_confirmation, :username)
     end
 end

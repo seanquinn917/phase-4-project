@@ -69,4 +69,26 @@
 }
 .review{
   font-size: large;
+  font-weight: bold;
+}
+.Info label{
+  font-weight: bold;
+}
+.login {
+  background-color: #578cf5;
+  padding-top: 0%;
+  margin: 0;
+}
+.login form{
+  text-decoration:underline;
+  font-size:xx-large
+}
+.login p{
+  background-color: #8bd833;
+  font-size: large;
+  font-weight: bold;
+  margin-top: 15%;
+}
+.home{
+  font-weight: bold;
 }

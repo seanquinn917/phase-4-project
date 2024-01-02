@@ -36,3 +36,6 @@ code {
 .reviewBlock{
   list-style: none;
 }
+.navItem Link{
+  font-weight: bold;
+}

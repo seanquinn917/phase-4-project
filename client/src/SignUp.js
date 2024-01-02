@@ -1,12 +1,14 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import {  useNavigate } from "react-router-dom";
+import UserContext from "./User-context";
+
 
 
 function SignUp(){
 const [username, setUserName]=useState("")
 const [password, setPassword]=useState("")
 const [passwordConfirmation, setPasswordConfirmation]=useState('')
-const [user, setUser]=useState(null)
+const [user, setUser]=useContext(UserContext)
 const[city, setCity]=useState("")
 const[name, setName]=useState('')
 const[age, setAge]=useState('')
@@ -23,8 +25,9 @@ function handleSubmit(e){
         city,
         name,
         password,
-        password_confirmation :passwordConfirmation
+        password_confirmation: passwordConfirmation
     }
+    console.log(newUser)
     fetch('/signup',{
         method: "POST",
         headers: {
@@ -34,7 +37,8 @@ function handleSubmit(e){
     }).then((r)=> {
         if(r.ok){
             r.json()
-        .then((user)=>setUser(user));
+        .then((user)=>setUser(user))
+        .then(()=>navigate('/movies'))
     } else {
         r.json().then((error)=>console.log(error))
     }
