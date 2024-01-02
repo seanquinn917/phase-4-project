@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react"
 import {  useNavigate } from "react-router-dom";
 import UserContext from "./User-context";
-
+import Error from "./styles/Error";
 
 
 function SignUp(){
@@ -19,6 +19,7 @@ const navigate=useNavigate()
 
 function handleSubmit(e){
     e.preventDefault();
+    setErrors([])
     const newUser={
         username,
         age,
@@ -40,7 +41,7 @@ function handleSubmit(e){
         .then((user)=>setUser(user))
         .then(()=>navigate('/movies'))
     } else {
-        r.json().then((error)=>console.log(error))
+        r.json().then((err)=>setErrors(err.errors))
     }
     })
 }
@@ -96,6 +97,11 @@ function handleSubmit(e){
                 <button type="submit">Signup</button>
             </div>
         </form>
+        <ul>
+        {errors.map((err) => (
+          <Error key={err}>{err}</Error>
+        ))}
+        </ul>
         </div>
 
 

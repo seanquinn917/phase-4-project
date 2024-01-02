@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "./User-context";
 import './App.css'
+import Error from "./styles/Error";
 
 
 
@@ -19,6 +20,7 @@ function Login(){
 
     function onLogin(e) {
         e.preventDefault();
+        setErrors([])
         fetch("/login", {
           method: "POST",
           headers: {
@@ -28,19 +30,20 @@ function Login(){
         })
           .then((r) => {
             if (r.ok) {
-              return r.json();
+             r.json().then((user) => {
+              setUser(user);
+              navigate("/movies");
+            })
             } else {
-              throw new Error("Login failed");
+              r.json().then((err) => setErrors(err.error));;
             }
           })
-          .then((user) => {
-            setUser(user);
-            navigate("/movies");
-          })
-          .catch((error) => {
-            console.log(error);
-            // Handle login failure
-          });
+          
+          
+          // .catch((err) => {
+          //   setErrors(err.errors);
+            
+          // });
       }
 
 
@@ -67,6 +70,11 @@ function Login(){
     <p>
     Not a member? <Link to='/signup'>Click here to sign up</Link>
     </p>
+    <ul>
+    {errors.map((err) => (
+          <Error key={err}>{err}</Error>
+        ))}
+    </ul>
     
     </body>
     )

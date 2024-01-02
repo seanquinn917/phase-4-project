@@ -49,11 +49,6 @@ if (user === null) {
   return <p>Loading...</p>;
 }
 
-    // const displayMovies = movies.map((movie)=>{
-    //     return <MovieTile movies={movies} id={movie.id} key={movie.id} title={movie.title} director={movie.director} genre={movie.genre} />
-    //   })
-    
-
 return(
 <Wrapper>
 <body>

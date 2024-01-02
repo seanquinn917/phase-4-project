@@ -8,11 +8,13 @@ import { useEffect } from "react";
 import './App.css';
 import InsiderWrap from "./styles/InsiderWrap";
 import Button from "./styles/Button";
+import Error from "./styles/Error";
 
 function InsiderInfo({ movies, setMovies}){
 const {id}=useParams()
 const [user, setUser]=useContext(UserContext)
 const [showForm, setShowForm]=useState(false)
+const [errors, setErrors]=useState([])
 
 const[newReviewContent, setNewReviewContent]=useState({
     content:"",
@@ -26,7 +28,8 @@ const movie = movies.find((movie)=>movie.id===parseInt(id))
 
     function addNewReview(e){
         e.preventDefault()
-        console.log("userID", newReviewContent.user_id)
+        setErrors([])
+        // console.log("userID", newReviewContent.user_id)
         fetch('/reviews',{
             method: "POST",
             headers:{
@@ -38,15 +41,22 @@ const movie = movies.find((movie)=>movie.id===parseInt(id))
                 user_id:user.id
             })
         })
-        .then((r)=>r.json())
+        .then((r)=>{
+          if(r.ok){
+            r.json()
         .then((newreview)=>{
           console.log(newreview)
             const updatedMovies=[...movies]
             const targetMovie=updatedMovies.find((r)=>r.id ===parseInt(id))
             targetMovie.reviews.push(newreview)
             setMovies(updatedMovies)
-        })
-
+        })} else {
+          r.json().then((err)=>{
+            console.log(err)
+            setErrors([err.exception])
+            })
+        }
+      })
     }
 
     function deleteReview(reviewId){
@@ -216,6 +226,11 @@ const movieReviews = movie.reviews.map((review) => {
                 <input type="submit" value="submit"></input>
                </form>
         </div>
+        <ul>
+        {errors.map((err, index) => (
+          <Error key={index}>{err}</Error>
+        ))}
+        </ul>
         </body>
         </InsiderWrap>
     )

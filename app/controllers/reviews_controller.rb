@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
 
-    skip_before_action :authorized, only: [:index, :show]
+    # skip_before_action :authorized, only: [:index, :show]
+
     def index
         reviews = Review.all
         render json: reviews, include: :users
@@ -13,11 +14,14 @@ class ReviewsController < ApplicationController
 
     def create
         review=Review.create!(review_params)
+        if review
         render json:review
+        else 
+        render json: {errors: review.errors.full_messages}, status: :unprocessable_entity
+        end
     end
 
     def destroy
-       
         review=Review.find_by(id:params[:id])
         review.destroy
         head :no_content
