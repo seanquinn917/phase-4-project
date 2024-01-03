@@ -7,7 +7,7 @@ The Movie World application's back end is constructed with Rails and leverages A
 
 ## Installation  
 
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+visit: https://movie-world-rnw3.onrender.com/ in view in your browser.
 
 ## Usage
 
