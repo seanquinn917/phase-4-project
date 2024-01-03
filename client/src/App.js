@@ -19,7 +19,7 @@ function App() {
 
 
  useEffect(()=>{
-  fetch("http://localhost:4000/movies")
+  fetch("/movies")
   .then((r)=> r.json())
   .then((data)=>setMovies(data))
 }, [])
