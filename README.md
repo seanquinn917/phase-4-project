@@ -5,7 +5,7 @@ Movies World
 
 The Movie World application's back end is constructed with Rails and leverages Active Record, while its front end is developed in React.
 
-## Installation
+## Installation  
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
