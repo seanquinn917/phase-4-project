@@ -13,7 +13,7 @@ import Nav from './Nav';
 
 function App() {
  
- const [user, setUser]=useState(UserContext)
+//  const [user, setUser]=useState(UserContext)
  const [movies, setMovies]=useState([])
 
 
@@ -37,9 +37,9 @@ function App() {
           <Routes>
             <Route path="/signup" element={<SignUp />} />
             <Route path= "/movies" element={<MovieList movies={movies} setMovies={setMovies}/>}/>
-            <Route path="/" element={<Home user={user} setUser={setUser}/>}/>
+            <Route path="/" element={<Home />}/>
             <Route path= '/movies/:id' element={<InsiderInfo  movies={movies} setMovies={setMovies}/>}/>
-            <Route path="/login" element={<Login user={user} setUser={setUser}/>}/>
+            <Route path="/login" element={<Login />}/>
           </Routes>
       
       </UserProvider>

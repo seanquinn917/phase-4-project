@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authorized, only: [:index, :create, :destroy]
+    skip_before_action :authorized, only: [:index, :show, :create, :destroy, :users_review]
 
     def index
         users = User.all
@@ -66,8 +66,11 @@ class UsersController < ApplicationController
     end
 
   
-
-
+    def users_review
+      number = params[:n].to_i
+      user = User.all.select{|u| u.reviews.count >= number}
+      render json: user 
+    end
 
 
 

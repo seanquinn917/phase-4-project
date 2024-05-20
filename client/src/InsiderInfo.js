@@ -29,7 +29,7 @@ const movie = movies.find((movie)=>movie.id===parseInt(id))
     function addNewReview(e){
         e.preventDefault()
         setErrors([])
-        // console.log("userID", newReviewContent.user_id)
+      
         fetch('/reviews',{
             method: "POST",
             headers:{
@@ -52,7 +52,7 @@ const movie = movies.find((movie)=>movie.id===parseInt(id))
             setMovies(updatedMovies)
         })} else {
           r.json().then((err)=>{
-            console.log(err)
+            console.log("this is what i'm looking for", err)
             setErrors([err.exception])
             })
         }
@@ -154,14 +154,6 @@ const movie = movies.find((movie)=>movie.id===parseInt(id))
 
     }
     
-  //   function updateReviewFormChange(e){
-  //     e.preventDefault()
-  //     setUpdateReviewContent({
-  //         ...updateReviewContent,
-  //         [e.target.name]:e.target.value
-  //     })
-
-  // }
 
     if(!movie){
         return <h1>Loading...</h1>
@@ -203,9 +195,9 @@ const movieReviews = movie.reviews.map((review) => {
         <body>
         <div className="Info"> <header key={movie.id}> 
            
-                <h1>{movie.title}</h1>
-                <h2>{movie.director}</h2>
-                <h3>{movie.genre}</h3>
+                <h1>{movie.title}/{movie.genre}</h1>
+                <h2>Directed by: {movie.director}</h2>
+                <h3></h3>
                 </header>
                   <h4>What the people have to say:</h4>
                   <ul className="reviewBlock">

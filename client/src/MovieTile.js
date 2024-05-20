@@ -34,7 +34,7 @@ function deleteMovie(e){
             <li>{director}</li>
             <li>{genre}</li>
             <Link to={`/movies/${id}`}>Insider Info</Link>
-            <Button onClick={deleteMovie}>Delete</Button>
+            {/* <Button onClick={deleteMovie}>Delete</Button> */}
         </div>
     )
 };
