@@ -29,7 +29,9 @@ const movie = movies.find((movie)=>movie.id===parseInt(id))
     function addNewReview(e){
         e.preventDefault()
         setErrors([])
-      
+      if(newReviewContent.content.length < 1){
+        return setErrors(["input field cannot be blank"])
+      }
         fetch('/reviews',{
             method: "POST",
             headers:{
