@@ -13,7 +13,7 @@ import Nav from './Nav';
 
 function App() {
  
-//  const [user, setUser]=useState(UserContext)
+
  const [movies, setMovies]=useState([])
 
 

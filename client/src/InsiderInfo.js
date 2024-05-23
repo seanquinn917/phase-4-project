@@ -67,10 +67,8 @@ const movie = movies.find((movie)=>movie.id===parseInt(id))
     })
       .then((r) => {
         if (r.status === 204) {
-          // Deletion was successful, no content to parse
           return null;
         } else {
-          // Parse the response as JSON
           return r.json();
         }
       })

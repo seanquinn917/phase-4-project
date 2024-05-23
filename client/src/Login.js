@@ -39,11 +39,6 @@ function Login(){
             }
           })
           
-          
-          // .catch((err) => {
-          //   setErrors(err.errors);
-            
-          // });
       }
 
 
