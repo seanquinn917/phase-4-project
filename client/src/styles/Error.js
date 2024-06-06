@@ -3,14 +3,14 @@ import styled from "styled-components";
 function Error({ children }) {
   return (
     <Wrapper>
-      <Alert>!</Alert>
-      <Message>{children}</Message>
+      {/* <Alert>Oops!</Alert> */}
+      <Message>Oops!  {children}</Message>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  color: red;
+  color: yellow;
   background-color: white;
   border-radius: 6px;
   display: flex;
