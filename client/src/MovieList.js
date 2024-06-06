@@ -52,6 +52,16 @@ if (user === null) {
 return(
 <Wrapper>
 <body>
+<form onSubmit={addNewMovie}>Add your favorite movie:
+        <label>Movie Title</label>
+        <input type="text" name="title" value={newMovieForm.title} onChange={movieFormChange}></input>
+        <label>Director</label>
+        <input type="text" name="director" value={newMovieForm.director} onChange={movieFormChange}></input>
+        <label>Genre</label>
+        <input type="text" name="genre" value={newMovieForm.genre} onChange={movieFormChange}></input>
+        <input type="submit" value="submit"/>
+        
+    </form>
   <span className="grid">
     {movies.map((movie)=>{
       return  <MovieTile
@@ -65,16 +75,7 @@ return(
     />
     })}
     </span>
-    <form onSubmit={addNewMovie}>Add your favorite movie:
-        <label>Movie Title</label>
-        <input type="text" name="title" value={newMovieForm.title} onChange={movieFormChange}></input>
-        <label>Director</label>
-        <input type="text" name="director" value={newMovieForm.director} onChange={movieFormChange}></input>
-        <label>Genre</label>
-        <input type="text" name="genre" value={newMovieForm.genre} onChange={movieFormChange}></input>
-        <input type="submit" value="submit"/>
-        
-    </form>
+    
 </body>
 </Wrapper>
 )
