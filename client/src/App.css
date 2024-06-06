@@ -75,7 +75,7 @@
   font-weight: bold;
 }
 .login {
-  background-color: #578cf5;
+  background-color: #6e737e;
   padding-top: 0%;
   margin: 0;
 }
@@ -84,11 +84,14 @@
   font-size:xx-large
 }
 .login p{
-  background-color: #8bd833;
+  background-color: #6e737e;
   font-size: large;
   font-weight: bold;
   margin-top: 15%;
 }
 .home{
   font-weight: bold;
+}
+.errors{
+  background-color: #6e737e;
 }

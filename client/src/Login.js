@@ -65,11 +65,11 @@ function Login(){
     <p>
     Not a member? <Link to='/signup'>Click here to sign up</Link>
     </p>
-    <ul>
+    <p className="errors">
     {errors.map((err) => (
           <Error key={err}>{err}</Error>
         ))}
-    </ul>
+    </p>
     
     </body>
     )
