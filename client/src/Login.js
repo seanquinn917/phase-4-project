@@ -37,7 +37,6 @@ function Login(){
             } else {
               r.json().then((err) => setErrors(err.error));;
             }
-            console.log(username)
           })
           
       }
